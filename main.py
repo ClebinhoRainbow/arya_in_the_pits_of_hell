@@ -7,13 +7,13 @@ janela = Window(800,600)
 janela.set_title("Arya in the pits of hell")
 teclado = Window.get_keyboard()
 
-
-# fundo = GameImage('vesuvio.jpg')
+player = Sprite("Arya.png",1)
+background = GameImage("bg-image.png")
 # bola = Sprite('bola de fogo.png',1)
 # padE = Sprite ("pad.png",1)
 # padD = Sprite ("pad.png",1)
 
-
+enemy_1 = Sprite("enemy.png",1)
 # posicao_x_bola = janela.width/2 -bola.width/2
 # posicao_y_bola = janela.height/2 - bola.height/2
 # bola.set_position(posicao_x_bola,posicao_y_bola)

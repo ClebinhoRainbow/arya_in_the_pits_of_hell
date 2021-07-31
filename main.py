@@ -30,6 +30,7 @@ while (True):
     #Games Physics
     
     player.move_player(teclado, janela,plataforma)
+
     #Placar
 
     #Desenho dos Game Objects
@@ -37,6 +38,8 @@ while (True):
 
 
     background.draw()
+
     player.draw()
+    player.shoot(janela, teclado)
     plataforma.draw()
     janela.update()

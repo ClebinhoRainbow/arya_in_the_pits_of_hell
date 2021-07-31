@@ -1,4 +1,6 @@
+import time
 from PPlay import sprite
+from tiro import *
 from PPlay.window import *
 
 class Player(sprite.Sprite):
@@ -15,7 +17,7 @@ class Player(sprite.Sprite):
 
     def move_player(self,teclado,janela,plataforma):
 
-        keyPressed = teclado.key_pressed("SPACE")
+        keyPressed = teclado.key_pressed("UP")
         if (keyPressed and self.is_jumping == False):
             self.is_jumping = True
         if (self.relogio <= 0.5 and self.is_jumping):
@@ -53,6 +55,33 @@ class Player(sprite.Sprite):
             pass
         else:
             pass
+    def shoot(self,janela,teclado):
+        lista_tiro = []
+        cooldown = 0
+        delta_0 = 0
+        delta_1 = 0
+
+        cooldown = delta_1 - delta_0
+        delta_1 = time.time()
+        if (teclado.key_pressed("SPACE")   ):
+            delta_0 = time.time()
+            #Instancia tiro
+
+            novo_tiro = Tiro("tiro.png")
+            lista_tiro.append(novo_tiro)
+
+
+
+        for tiro in lista_tiro:
+            tiro.set_position(tiro.x + tiro.vel, tiro.y)
+            if (tiro.x > janela.width):
+                lista_tiro.pop(0)
+            tiro.draw()
+
+
+
+
+        print(lista_tiro)
 
 
 

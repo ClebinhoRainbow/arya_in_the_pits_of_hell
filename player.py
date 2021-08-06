@@ -2,7 +2,7 @@ import time
 from PPlay import sprite
 from tiro import *
 from PPlay.window import *
-
+from PPlay import gameimage
 class Player(sprite.Sprite):
     vel = 150
     ammo = True
@@ -12,11 +12,14 @@ class Player(sprite.Sprite):
     is_jumping = False
     relogio = 0
 
-    def init(self, image_file, frames=1):
-        super().init(image_file,frames=1)
+    def init(self, image_file):
+        super().init(image_file, frames=1)
+        self.image = pygame.transform.scale(image_file, (int(image_file.get_width()*2), int(image_file.get_height()*2)))
+        # self.width = self.image.get_rect().width
+        # self.height = self.image.get_rect().height
 
     def move_player(self,teclado,janela,plataforma):
-
+        #fisica do salto
         keyPressed = teclado.key_pressed("UP")
         if (keyPressed and self.is_jumping == False):
             self.is_jumping = True
@@ -33,7 +36,7 @@ class Player(sprite.Sprite):
 
 
 
-
+        # fisica de movimento
         keyLeftPressed = teclado.key_pressed("LEFT") and self.x > 0
         if (keyLeftPressed):
             self.x = self.x - self.vel * janela.delta_time()
@@ -54,7 +57,9 @@ class Player(sprite.Sprite):
         if(self.looking_right == True):
             pass
         else:
+
             pass
+
     def shoot(self,janela,teclado):
         lista_tiro = []
         cooldown = 0
@@ -67,7 +72,7 @@ class Player(sprite.Sprite):
             delta_0 = time.time()
             #Instancia tiro
 
-            novo_tiro = Tiro("tiro.png")
+            novo_tiro = Tiro("assets/tiro.png")
             lista_tiro.append(novo_tiro)
 
 
@@ -79,9 +84,19 @@ class Player(sprite.Sprite):
             tiro.draw()
 
 
+    def show_hud(self):
+        if(self.item):
+            #drawItem
+            pass
+        if(self.ammo):
+            #subtract the number of bullets
+            pass
+        #Pegar codigo do Space Invaders, matriz
+        hud = gameimage.GameImage("./assets/hud.png")
+        hud.set_position(25, 25)
+        hud.draw()
 
 
-        print(lista_tiro)
 
 
 

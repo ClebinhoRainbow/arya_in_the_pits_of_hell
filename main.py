@@ -9,7 +9,8 @@ from inimigo import *
 janela = Window(800, 600)
 janela.set_title("Arya in the pits of hell")
 teclado = Window.get_keyboard()
-
+clock = pygame.time.Clock()
+FPS = 60
 
 
 
@@ -30,7 +31,7 @@ plataforma4 = Plataforma("assets/plataforma.png", 600, inimigo2.y + inimigo2.hei
 
 
 while (True):
-
+    clock.tick(FPS)
     #entrad de dados
 
     # Update dos Game Objects

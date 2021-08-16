@@ -5,6 +5,7 @@ from PPlay.window import *
 from PPlay import gameimage
 class Player(sprite.Sprite):
     vel = 150
+    vel_y = 0
     ammo = True
     number_lifes = 3
     item = False
@@ -14,7 +15,7 @@ class Player(sprite.Sprite):
 
     def init(self, image_file):
         super().init(image_file, frames=1)
-        self.image = pygame.transform.scale(image_file, (int(image_file.get_width()*2), int(image_file.get_height()*2)))
+        self = pygame.transform.scale(self, (int(self.width * 3), int(self.height * 3)))
         # self.width = self.image.get_rect().width
         # self.height = self.image.get_rect().height
 
@@ -23,17 +24,16 @@ class Player(sprite.Sprite):
         keyPressed = teclado.key_pressed("UP")
         if (keyPressed and self.is_jumping == False):
             self.is_jumping = True
-        if (self.relogio <= 0.5 and self.is_jumping):
-            self.relogio += janela.delta_time()
-            self.y -= 200 * janela.delta_time()
-        elif (self.collided(plataforma) == False):
-            self.relogio += janela.delta_time()
-            self.y += 200 * janela.delta_time()
-        elif(self.collided(plataforma) == True):
+            self.vel_y = -11
+
+        
+        self.vel_y += 30 * janela.delta_time()
+        print(self.vel_y)
+        if self.y + self.vel_y + self.height +10 >= plataforma.y:
+            self.y = plataforma.y - self.height
             self.is_jumping = False
-            self.relogio = 0
-
-
+        else: 
+            self.y += self.vel_y
 
 
         # fisica de movimento

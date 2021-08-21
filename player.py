@@ -1,8 +1,11 @@
 import time
+from pygame.transform import set_smoothscale_backend
 from PPlay import sprite
 from tiro import *
 from PPlay.window import *
+from PPlay.sound import *
 from PPlay import gameimage
+efx = Sound("assets/shoot.ogg")
 class Player(sprite.Sprite):
     vel = 150
     vel_y = 0
@@ -12,6 +15,11 @@ class Player(sprite.Sprite):
     looking_right = True
     is_jumping = False
     relogio = 0
+    action = 0
+    lista_tiros = []
+    delta_1 = time.time()
+    delta_0 = time.time()
+    shoot_rate = 0.75
 
     def init(self, image_file):
         super().init(image_file, frames=1)
@@ -29,58 +37,87 @@ class Player(sprite.Sprite):
 
         
         self.vel_y += 30 * janela.delta_time()
-        print(self.vel_y)
+        
         if self.y + self.vel_y + self.height +10 >= plataforma.y:
             self.y = plataforma.y - self.height
             self.is_jumping = False
         else: 
             self.y += self.vel_y
 
-
+        #print(self.get_curr_frame())
+        if not self.is_looping():
+            print('parou')
+        if not self.is_playing():
+            print('stoped')
         # fisica de movimento
         keyLeftPressed = teclado.key_pressed("LEFT") and self.x > 0
-        if (keyLeftPressed):
-            self.x = self.x - self.vel * janela.delta_time()
-        
         keyRightPressed = teclado.key_pressed("RIGHT") and self.x < janela.width - self.width
-        if (keyRightPressed):
-            self.x = self.x + self.vel * janela.delta_time()
-            self.image = pygame.image.load("assets/run.png")         
-
-
-
+        if (keyLeftPressed or keyRightPressed):
+            
+            if (keyLeftPressed):
+                self.x = self.x - self.vel * janela.delta_time()
+                self.looking_right = False
+                self.flip_player()
+            if (keyRightPressed):
+                self.x = self.x + self.vel * janela.delta_time()
+                self.looking_right = True
+                self.flip_player()
+            self.upd_action(1)
+        else:
+            self.upd_action(0)
+        
+          
+    def upd_action(self, new_action):
+        if self.action != new_action:
+            if new_action == 1:
+                self.set_sequence_time(2,6,160)
+            if new_action == 0:
+                print("passou")
+                self.set_sequence_time(0,2,400)
+            self.action = new_action
 
     def flip_player(self):
         #TODO
         if(self.looking_right == True):
-            self.image = pygame.image.load("assets/idle2.png")
-            self.x -= self.width/2
+            self.image = pygame.image.load("assets/sprite.png")
+            #self.x -= self.width/2
         else:
-            self.image = pygame.image.load("assets/idle.png")
-            self.x += self.width/2
+            self.image = pygame.image.load("assets/sprite1.png")
+            #self.x += self.width/2
             pass
 
     def shoot(self,janela,teclado):
         lista_tiro = []
         cooldown = 0
-        delta_0 = 0
-        delta_1 = 0
+        altura_arma = self.y + 15
+        if self.looking_right:
+            distancia_inicial_tiro = self.x + 50
+        else:
+            distancia_inicial_tiro = self.x
 
-        cooldown = delta_1 - delta_0
-        delta_1 = time.time()
-        if (teclado.key_pressed("SPACE")   ):
-            delta_0 = time.time()
+        self.delta_1 = time.time()
+        cooldown = self.delta_1 - self.delta_0
+        if (teclado.key_pressed("SPACE")   and cooldown > self.shoot_rate ):
+            efx.play()
+            self.delta_0 = time.time()
             #Instancia tiro
-
             novo_tiro = Tiro("assets/tiro.png")
-            lista_tiro.append(novo_tiro)
+            if self.looking_right:
+                novo_tiro.dire = 1
+            else:
+                novo_tiro.dire = -1
+            novo_tiro.set_position(distancia_inicial_tiro, altura_arma)
+            
+            self.lista_tiros.append(novo_tiro)
 
 
 
-        for tiro in lista_tiro:
-            tiro.set_position(tiro.x + tiro.vel, tiro.y)
-            if (tiro.x > janela.width):
-                lista_tiro.pop(0)
+        for tiro in self.lista_tiros:
+            tiro.x = tiro.x + (tiro.vel * tiro.dire)
+            if (tiro.x > janela.width or tiro.x < 0):
+                self.lista_tiros.pop(0)
+                continue
+            #tiro.set_position(tiro.x+5,tiro.y)
             tiro.draw()
 
 

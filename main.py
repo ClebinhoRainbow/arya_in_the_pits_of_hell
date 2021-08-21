@@ -4,21 +4,24 @@ from PPlay.sprite import *
 from player import *
 from plataforma import *
 from inimigo import *
+from PPlay.sound import *
 #inicializacao
 
 janela = Window(800, 600)
 janela.set_title("Arya in the pits of hell")
 teclado = Window.get_keyboard()
+musica = Sound("assets/hellOST.ogg")
+#efx = Sound()
 clock = pygame.time.Clock()
 FPS = 60
-
+musica.play()
 
 
 # enemy_1 = Sprite("inimigo.png",1)
 
 
 # player = Player("arya.png", 50, 401)
-player = Player("assets/idle.png",2)
+player = Player("assets/sprite.png",6)
 player.set_sequence_time(0,2,400)
 inimigo = Inimigo("assets/flip-enemy.png")
 inimigo2 = Inimigo("assets/flip-enemy.png")
@@ -56,6 +59,9 @@ while (True):
     player.update()
     player.draw()
     player.shoot(janela, teclado)
+    janela.draw_text("Life: " + str(player.number_lifes), 580, 20, size=16, color=(255, 255, 255),
+                        font_name="Arial",
+                        bold=False, italic=False)
     plataforma.draw()
     plataforma2.draw()
     plataforma3.draw()

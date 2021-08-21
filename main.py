@@ -4,18 +4,27 @@ from PPlay.sprite import *
 from player import *
 from plataforma import *
 from inimigo import *
+<<<<<<< HEAD
 from PPlay.sound import *
+=======
+from  PPlay.sound import *
+>>>>>>> dfcdf68ee67e27675ea48cea0f684879feb02904
 #inicializacao
 
 janela = Window(800, 600)
 janela.set_title("Arya in the pits of hell")
 teclado = Window.get_keyboard()
+<<<<<<< HEAD
 musica = Sound("assets/hellOST.ogg")
 #efx = Sound()
+=======
+#musica = Sound("assets/hellOST.ogg")
+>>>>>>> dfcdf68ee67e27675ea48cea0f684879feb02904
 clock = pygame.time.Clock()
 FPS = 60
 musica.play()
 
+#musica.play()
 
 # enemy_1 = Sprite("inimigo.png",1)
 
@@ -32,6 +41,9 @@ plataforma = Plataforma("assets/plataforma.png", 45, 480, 1)
 plataforma2 = Plataforma("assets/plataforma.png", 245, 480, 1)
 plataforma3 = Plataforma("assets/plataforma.png", 445, 480, 1)
 plataforma4 = Plataforma("assets/plataforma.png", 600, inimigo2.y + inimigo2.height, 1)
+lista_de_inimigos = []
+lista_de_inimigos.append(inimigo)
+lista_de_inimigos.append(inimigo2)
 
 
 while (True):
@@ -60,8 +72,13 @@ while (True):
     player.draw()
     player.shoot(janela, teclado)
     janela.draw_text("Life: " + str(player.number_lifes), 580, 20, size=16, color=(255, 255, 255),
+<<<<<<< HEAD
                         font_name="Arial",
                         bold=False, italic=False)
+=======
+                          font_name="Arial",
+                          bold=False, italic=False)
+>>>>>>> dfcdf68ee67e27675ea48cea0f684879feb02904
     plataforma.draw()
     plataforma2.draw()
     plataforma3.draw()

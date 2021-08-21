@@ -32,6 +32,9 @@ plataforma = Plataforma("assets/plataforma.png", 45, 480, 1)
 plataforma2 = Plataforma("assets/plataforma.png", 245, 480, 1)
 plataforma3 = Plataforma("assets/plataforma.png", 445, 480, 1)
 plataforma4 = Plataforma("assets/plataforma.png", 600, inimigo2.y + inimigo2.height, 1)
+lista_de_inimigos = []
+lista_de_inimigos.append(inimigo)
+lista_de_inimigos.append(inimigo2)
 
 
 while (True):
@@ -59,6 +62,9 @@ while (True):
     player.update()
     player.draw()
     player.shoot(janela, teclado)
+    janela.draw_text("Life: " + str(player.number_lifes), 580, 20, size=16, color=(255, 255, 255),
+                          font_name="Arial",
+                          bold=False, italic=False)
     plataforma.draw()
     plataforma2.draw()
     plataforma3.draw()

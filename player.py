@@ -78,13 +78,9 @@ class Player(sprite.Sprite):
             pass
 
     def shoot(self,janela,teclado):
-        lista_tiro = []
-        cooldown = 0
-
 
         altura_arma = self.y + 15
         distancia_inicial_tiro = self.x + 100
-
         self.delta_1 = time.time()
         cooldown = self.delta_1 - self.delta_0
         print(cooldown)
@@ -98,12 +94,10 @@ class Player(sprite.Sprite):
 
 
         for tiro in self.lista_tiros:
-
             if (tiro.x > janela.width):
                 self.lista_tiros.pop(0)
                 continue
             tiro.set_position(tiro.x+10,tiro.y)
-
             tiro.draw()
 
 
@@ -118,6 +112,17 @@ class Player(sprite.Sprite):
         hud = gameimage.GameImage("./assets/hud.png")
         hud.set_position(25, 25)
         hud.draw()
+    def decrease_life(self):
+        self.number_lifes -= 1
+
+    def colidiu(self, list_of_monsters, list_of_enemy_fire):
+        for monster in list_of_monsters:
+            if(self.colidiu(monster)):
+                self.decrease_life()
+
+        # for fire in list_of_enemy_fire:
+        #     if(self.colidiu(fire)):
+        #         self.decrease_life()
 
 
 

@@ -12,6 +12,10 @@ class Player(sprite.Sprite):
     looking_right = True
     is_jumping = False
     relogio = 0
+    lista_tiros = []
+    delta_1 = time.time()
+    delta_0 = time.time()
+    shoot_rate = 0.75
 
     def init(self, image_file):
         super().init(image_file, frames=1)
@@ -19,8 +23,10 @@ class Player(sprite.Sprite):
         
         # self.width = self.image.get_rect().width
         # self.height = self.image.get_rect().height
-
+    def altera_stripe_de_movimento(self):
+        print("oi")
     def move_player(self,teclado,janela,plataforma):
+
         #fisica do salto
         keyPressed = teclado.key_pressed("UP")
         if (keyPressed and self.is_jumping == False):
@@ -29,7 +35,6 @@ class Player(sprite.Sprite):
 
         
         self.vel_y += 30 * janela.delta_time()
-        print(self.vel_y)
         if self.y + self.vel_y + self.height +10 >= plataforma.y:
             self.y = plataforma.y - self.height
             self.is_jumping = False
@@ -40,14 +45,26 @@ class Player(sprite.Sprite):
         # fisica de movimento
         keyLeftPressed = teclado.key_pressed("LEFT") and self.x > 0
         if (keyLeftPressed):
+
+            self.set_initial_frame(2)
+            self.set_final_frame(5)
+            #self.update()
             self.x = self.x - self.vel * janela.delta_time()
-        
+            if self.looking_right == True:
+                self.flip_player()
+            self.looking_right = False
+
         keyRightPressed = teclado.key_pressed("RIGHT") and self.x < janela.width - self.width
+        #tecla = teclado.show_key_pressed()
         if (keyRightPressed):
+            #print(tecla)
+            self.set_initial_frame(2)
+            self.set_final_frame(5)
+            #self.update()
             self.x = self.x + self.vel * janela.delta_time()
-            self.image = pygame.image.load("assets/run.png")         
-
-
+            if self.looking_right == False:
+                self.flip_player()
+            self.looking_right = True
 
 
     def flip_player(self):
@@ -63,24 +80,30 @@ class Player(sprite.Sprite):
     def shoot(self,janela,teclado):
         lista_tiro = []
         cooldown = 0
-        delta_0 = 0
-        delta_1 = 0
 
-        cooldown = delta_1 - delta_0
-        delta_1 = time.time()
-        if (teclado.key_pressed("SPACE")   ):
-            delta_0 = time.time()
+
+        altura_arma = self.y + 15
+        distancia_inicial_tiro = self.x + 100
+
+        self.delta_1 = time.time()
+        cooldown = self.delta_1 - self.delta_0
+        print(cooldown)
+        if (teclado.key_pressed("SPACE")   and cooldown > self.shoot_rate ):
+            self.delta_0 = time.time()
             #Instancia tiro
-
             novo_tiro = Tiro("assets/tiro.png")
-            lista_tiro.append(novo_tiro)
+            novo_tiro.set_position(distancia_inicial_tiro, altura_arma)
+            self.lista_tiros.append(novo_tiro)
 
 
 
-        for tiro in lista_tiro:
-            tiro.set_position(tiro.x + tiro.vel, tiro.y)
+        for tiro in self.lista_tiros:
+
             if (tiro.x > janela.width):
-                lista_tiro.pop(0)
+                self.lista_tiros.pop(0)
+                continue
+            tiro.set_position(tiro.x+10,tiro.y)
+
             tiro.draw()
 
 

@@ -7,3 +7,5 @@ class Tiro(sprite.Sprite):
         super().init(image_file,frames=1)
         self.x = 400
         self.y = 400
+    def atualiza_tiro(self):
+        self.x += self.vel

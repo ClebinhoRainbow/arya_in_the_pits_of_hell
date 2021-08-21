@@ -41,16 +41,11 @@ class Player(sprite.Sprite):
         keyLeftPressed = teclado.key_pressed("LEFT") and self.x > 0
         if (keyLeftPressed):
             self.x = self.x - self.vel * janela.delta_time()
-            if self.looking_right == True:
-                self.flip_player()
-            self.looking_right = False
-
+        
         keyRightPressed = teclado.key_pressed("RIGHT") and self.x < janela.width - self.width
         if (keyRightPressed):
             self.x = self.x + self.vel * janela.delta_time()
-            if self.looking_right == False:
-                self.flip_player()
-            self.looking_right = True
+            self.image = pygame.image.load("assets/run.png")         
 
 
 
@@ -58,10 +53,10 @@ class Player(sprite.Sprite):
     def flip_player(self):
         #TODO
         if(self.looking_right == True):
-            self.image = pygame.image.load("assets/flip-arya.png")
+            self.image = pygame.image.load("assets/idle2.png")
             self.x -= self.width/2
         else:
-            self.image = pygame.image.load("assets/arya.png")
+            self.image = pygame.image.load("assets/idle.png")
             self.x += self.width/2
             pass
 

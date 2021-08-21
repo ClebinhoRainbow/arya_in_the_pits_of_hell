@@ -18,9 +18,10 @@ FPS = 60
 
 
 # player = Player("arya.png", 50, 401)
-player = Player("assets/arya.png")
-inimigo = Inimigo("assets/inimigo.png")
-inimigo2 = Inimigo("assets/inimigo.png")
+player = Player("assets/idle.png",2)
+player.set_sequence_time(0,2,400)
+inimigo = Inimigo("assets/flip-enemy.png")
+inimigo2 = Inimigo("assets/flip-enemy.png")
 player.set_position(50,401)
 inimigo.set_position(400, 401)
 inimigo2.set_position(700,251)
@@ -52,6 +53,7 @@ while (True):
     player.show_hud()
     inimigo.draw()
     inimigo2.draw()
+    player.update()
     player.draw()
     player.shoot(janela, teclado)
     plataforma.draw()

@@ -20,8 +20,14 @@ class Inimigo(sprite.Sprite):
 
         if(abs(self.x - playerX) > 80):
             if(posInimigoInicialX + 200 <= self.x):
+                if self.looking_right == True:
+                    self.flip_inimigo()
+                self.looking_right = False
                 self.direcao = -1
             elif(self.x  <= posInimigoInicialX):
+                if self.looking_right == False:
+                    self.flip_inimigo()
+                self.looking_right = True
                 self.direcao = 1
             # self.x += (100*self.direcao) * janela.delta_time()
             self.move_x(100*self.direcao * janela.delta_time())
@@ -33,9 +39,11 @@ class Inimigo(sprite.Sprite):
     def flip_inimigo(self):
         #TODO
         if(self.looking_right == True):
-            pass
+            self.image = pygame.image.load("assets/enemy.png")
+            self.x -= self.width/2
         else:
-            pass
+            self.image = pygame.image.load("assets/flip-enemy.png")
+            self.x += self.width/2
 
     # def shoot(self,janela,teclado):
     #     lista_tiro = []

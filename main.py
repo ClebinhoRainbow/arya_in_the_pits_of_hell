@@ -4,25 +4,17 @@ from PPlay.sprite import *
 from player import *
 from plataforma import *
 from inimigo import *
-<<<<<<< HEAD
 from PPlay.sound import *
-=======
-from  PPlay.sound import *
->>>>>>> dfcdf68ee67e27675ea48cea0f684879feb02904
 #inicializacao
 
 janela = Window(800, 600)
 janela.set_title("Arya in the pits of hell")
 teclado = Window.get_keyboard()
-<<<<<<< HEAD
 musica = Sound("assets/hellOST.ogg")
 #efx = Sound()
-=======
-#musica = Sound("assets/hellOST.ogg")
->>>>>>> dfcdf68ee67e27675ea48cea0f684879feb02904
 clock = pygame.time.Clock()
 FPS = 60
-musica.play()
+#musica.play()
 
 #musica.play()
 
@@ -32,17 +24,17 @@ musica.play()
 # player = Player("arya.png", 50, 401)
 player = Player("assets/sprite.png",6)
 player.set_sequence_time(0,2,400)
-inimigo = Inimigo("assets/flip-enemy.png")
+inimigo1 = Inimigo("assets/flip-enemy.png")
 inimigo2 = Inimigo("assets/flip-enemy.png")
 player.set_position(50,401)
-inimigo.set_position(400, 401)
+inimigo1.set_position(400, 401)
 inimigo2.set_position(700,251)
 plataforma = Plataforma("assets/plataforma.png", 45, 480, 1)
 plataforma2 = Plataforma("assets/plataforma.png", 245, 480, 1)
 plataforma3 = Plataforma("assets/plataforma.png", 445, 480, 1)
 plataforma4 = Plataforma("assets/plataforma.png", 600, inimigo2.y + inimigo2.height, 1)
 lista_de_inimigos = []
-lista_de_inimigos.append(inimigo)
+lista_de_inimigos.append(inimigo1)
 lista_de_inimigos.append(inimigo2)
 
 
@@ -55,9 +47,10 @@ while (True):
     # janela.draw_text("OI", 200, 200, size=32, color=(255, 255, 255))
   
     #Games Physics
+
     
     player.move_player(teclado, janela,plataforma)
-    inimigo.move_inimigo(player.x,400, janela,plataforma)
+    inimigo1.move_inimigo(player.x,400, janela,plataforma)
     inimigo2.move_inimigo(player.x,700,janela,plataforma)
 
     #Placar
@@ -66,19 +59,14 @@ while (True):
 
     janela.set_background_color([43, 16, 41])
     player.show_hud()
-    inimigo.draw()
-    inimigo2.draw()
+    for inimigo in lista_de_inimigos:
+        inimigo.draw()
     player.update()
     player.draw()
-    player.shoot(janela, teclado)
+    player.shoot(janela, teclado, lista_de_inimigos)
     janela.draw_text("Life: " + str(player.number_lifes), 580, 20, size=16, color=(255, 255, 255),
-<<<<<<< HEAD
                         font_name="Arial",
                         bold=False, italic=False)
-=======
-                          font_name="Arial",
-                          bold=False, italic=False)
->>>>>>> dfcdf68ee67e27675ea48cea0f684879feb02904
     plataforma.draw()
     plataforma2.draw()
     plataforma3.draw()

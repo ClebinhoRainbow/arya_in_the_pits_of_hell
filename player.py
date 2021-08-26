@@ -5,7 +5,7 @@ from tiro import *
 from PPlay.window import *
 from PPlay.sound import *
 from PPlay import gameimage
-efx = Sound("assets/shoot.ogg")
+#efx = Sound("assets/shoot.ogg")
 class Player(sprite.Sprite):
     vel = 150
     vel_y = 0
@@ -100,7 +100,7 @@ class Player(sprite.Sprite):
         self.delta_1 = time.time()
         cooldown = self.delta_1 - self.delta_0
         if (teclado.key_pressed("SPACE")   and cooldown > self.shoot_rate ):
-            efx.play()
+            #efx.play()
             self.delta_0 = time.time()
             #Instancia tiro
             novo_tiro = Tiro("assets/tiro.png")

@@ -10,7 +10,7 @@ from PPlay.sound import *
 janela = Window(800, 600)
 janela.set_title("Arya in the pits of hell")
 teclado = Window.get_keyboard()
-musica = Sound("assets/hellOST.ogg")
+#musica = Sound("assets/hellOST.ogg")
 #efx = Sound()
 clock = pygame.time.Clock()
 FPS = 60
@@ -33,6 +33,7 @@ plataforma = Plataforma("assets/plataforma.png", 45, 480, 1)
 plataforma2 = Plataforma("assets/plataforma.png", 245, 480, 1)
 plataforma3 = Plataforma("assets/plataforma.png", 445, 480, 1)
 plataforma4 = Plataforma("assets/plataforma.png", 600, inimigo2.y + inimigo2.height, 1)
+plataforma5
 lista_de_inimigos = []
 lista_de_inimigos.append(inimigo1)
 lista_de_inimigos.append(inimigo2)

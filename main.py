@@ -62,6 +62,7 @@ def game():
         player.show_hud()
         for inimigo in lista_de_inimigos:
             inimigo.draw()
+            inimigo.shoot(janela, player)
         player.update()
         player.draw()
         player.shoot(janela, teclado, lista_de_inimigos)

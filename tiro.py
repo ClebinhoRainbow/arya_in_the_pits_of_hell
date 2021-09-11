@@ -1,4 +1,5 @@
 from PPlay import sprite
+from PPlay.gameimage import *
 
 class Tiro(sprite.Sprite):
     vel = 20
@@ -7,4 +8,4 @@ class Tiro(sprite.Sprite):
         super().init(image_file,frames=1)
 
     def atualiza_tiro(self):
-        self.x += self.vel 
+        self.x += self.vel * self.dire

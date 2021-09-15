@@ -6,12 +6,15 @@ from PPlay.window import *
 from PPlay.sound import *
 from PPlay import gameimage
 efx = Sound("assets/audio/shoot.ogg")
+SCROLL_THRESH = 200
 class Player(sprite.Sprite):
     vel = 150
     vel_y = 0
     ammo = True
-    number_lifes = 3
-    item = False
+    muni = 10
+    total_life = 50
+    number_lifes = 50
+    item = True
     looking_right = True
     is_jumping = False
     relogio = 0
@@ -29,8 +32,9 @@ class Player(sprite.Sprite):
         # self.height = self.image.get_rect().height
     def altera_stripe_de_movimento(self):
         print("oi")
-    def move_player(self,teclado,janela,plataforma):
 
+    def move_player(self,teclado,janela,plataforma):
+        screen_scroll = 0
         #fisica do salto
         keyPressed = teclado.key_pressed("UP")
         if (keyPressed and self.is_jumping == False):
@@ -67,6 +71,12 @@ class Player(sprite.Sprite):
             self.upd_action(1)
         else:
             self.upd_action(0)
+
+        if self.x + self.width > 800 - SCROLL_THRESH or self.x < 100:
+            self.vel = 0
+            screen_scroll = -150
+        else:
+            self.vel = 150
         
           
     def upd_action(self, new_action):
@@ -101,6 +111,7 @@ class Player(sprite.Sprite):
         cooldown = self.delta_1 - self.delta_0
         if (teclado.key_pressed("SPACE")   and cooldown > self.shoot_rate ):
             efx.play()
+            self.muni -= 1
             self.delta_0 = time.time()
             #Instancia tiro
             novo_tiro = Tiro("assets/tiro.png")
@@ -127,17 +138,24 @@ class Player(sprite.Sprite):
             tiro.draw()
 
 
-    def show_hud(self):
-        if(self.item):
-            #drawItem
-            pass
-        if(self.ammo):
-            #subtract the number of bullets
-            pass
-        #Pegar codigo do Space Invaders, matriz
-        hud = gameimage.GameImage("./assets/hud.png")
+    def show_hud(self, screen):
+        hud = GameImage("assets/Hudd.png")
         hud.set_position(25, 25)
         hud.draw()
+        ratio = self.number_lifes / self.total_life
+        pygame.draw.rect(screen, (0,255,0), (29, 33, 115*ratio, 8))
+        if(self.item):
+            #drawItem
+            item = GameImage("assets/item.png")
+            item.set_position(178,33)
+            item.draw()
+        if(self.ammo):
+            #subtract the number of bullets
+            for x in range(self.muni):
+                bullet = GameImage("assets/ammo.png")
+                bullet.set_position(29 +( bullet.width * (x*1.5)) , 50 )
+                bullet.draw()
+        
     def decrease_life(self):
         self.number_lifes -= 1
 

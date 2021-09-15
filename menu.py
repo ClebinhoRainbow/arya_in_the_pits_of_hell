@@ -7,6 +7,8 @@ select = Sound("assets/audio/select.ogg")
 windows = Window(800, 600)
 mouse = Window.get_mouse()
 fundo = GameImage("assets/placeHolder.jpg")
+teste = fundo.image.get_rect()
+print(fundo.x)
 cur = 0
 while True:
     if mouse.is_over_area([80,210],[200, 235]):

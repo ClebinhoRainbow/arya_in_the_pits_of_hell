@@ -50,6 +50,11 @@ plataforma2 = Plataforma("assets/plataforma.png", 245, 480, 1)
 plataforma3 = Plataforma("assets/plataforma.png", 445, 480, 1)
 plataforma4 = Plataforma("assets/plataforma.png", 600, inimigo2.y + inimigo2.height, 1)
 lista_de_inimigos = []
+lista_plataformas = []
+lista_plataformas.append(plataforma)
+lista_plataformas.append(plataforma2)
+lista_plataformas.append(plataforma3)
+lista_plataformas.append(plataforma4)
 lista_de_inimigos.append(inimigo1)
 lista_de_inimigos.append(inimigo2)
 
@@ -67,6 +72,8 @@ def game():
 
         
         player.move_player(teclado, janela,plataforma)
+        # player.colidiu_com_plataforma(lista_plataformas)
+        # player.cair(janela)
         inimigo1.move_inimigo(player.x,400, janela,plataforma)
         inimigo2.move_inimigo(player.x,700,janela,plataforma)
 

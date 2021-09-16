@@ -23,7 +23,7 @@ class Player(sprite.Sprite):
     delta_1 = time.time()
     delta_0 = time.time()
     shoot_rate = 0.75
-
+    falling = False
     def init(self, image_file):
         super().init(image_file, frames=1)
         self = pygame.transform.scale(self, (int(self.width * 3), int(self.height * 3)))
@@ -39,7 +39,7 @@ class Player(sprite.Sprite):
         keyPressed = teclado.key_pressed("UP")
         if (keyPressed and self.is_jumping == False):
             self.is_jumping = True
-            self.vel_y = -11
+            self.vel_y = -20
 
         
         self.vel_y += 30 * janela.delta_time()
@@ -167,8 +167,5 @@ class Player(sprite.Sprite):
         # for fire in list_of_enemy_fire:
         #     if(self.colidiu(fire)):
         #         self.decrease_life()
-
-
-
 
 

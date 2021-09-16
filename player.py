@@ -8,7 +8,7 @@ from PPlay import gameimage
 efx = Sound("assets/audio/shoot.ogg")
 SCROLL_THRESH = 200
 class Player(sprite.Sprite):
-    vel = 150
+    vel = 5
     vel_y = 0
     ammo = True
     muni = 10
@@ -59,25 +59,25 @@ class Player(sprite.Sprite):
         keyLeftPressed = teclado.key_pressed("LEFT") and self.x > 0
         keyRightPressed = teclado.key_pressed("RIGHT") and self.x < janela.width - self.width
         if (keyLeftPressed or keyRightPressed):
-            
             if (keyLeftPressed):
-                self.x = self.x - self.vel * janela.delta_time()
+                self.x = self.x - self.vel
                 self.looking_right = False
                 self.flip_player()
             if (keyRightPressed):
-                self.x = self.x + self.vel * janela.delta_time()
+                self.x = self.x + self.vel
                 self.looking_right = True
                 self.flip_player()
             self.upd_action(1)
         else:
             self.upd_action(0)
 
-        if self.x + self.width > 800 - SCROLL_THRESH or self.x < 100:
-            self.vel = 0
-            screen_scroll = -150
-        else:
-            self.vel = 150
-        
+        if self.x + self.width > 800 - SCROLL_THRESH:
+            self.x -= self.vel
+            screen_scroll = -self.vel 
+        elif self.x < 100:
+            self.x += self.vel
+            screen_scroll = self.vel 
+        return screen_scroll
           
     def upd_action(self, new_action):
         if self.action != new_action:

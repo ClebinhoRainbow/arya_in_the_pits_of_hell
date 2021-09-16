@@ -23,7 +23,7 @@ class World():
                     img_rect.x = x * TILE_SIZE
                     img_rect.y = y * TILE_SIZE
                     tile_data = (img, img_rect)
-                if tile == 1 or tile == 2  or tile == 5  or tile == 6  or tile == 14:
+                if tile == 1 or tile == 2  or tile == 5  or tile == 6  or tile == 14 or tile == 17:
                     self.obstacle_list.append(tile_data)
                 else:
                     self.decoration_list.append(tile_data)
@@ -36,3 +36,7 @@ class World():
         for tile in self.decoration_list:
             tile[1][0] += scroll
             janela.screen.blit(tile[0],tile[1])
+
+
+    def get_lista_de_obstaculos(self):
+        return self.obstacle_list

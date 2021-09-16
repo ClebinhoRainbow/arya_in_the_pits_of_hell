@@ -1,5 +1,5 @@
 import time
-from pygame.transform import set_smoothscale_backend
+import pygame
 from PPlay import sprite
 from tiro import *
 from PPlay.window import *
@@ -8,8 +8,12 @@ from PPlay import gameimage
 efx = Sound("assets/audio/shoot.ogg")
 SCROLL_THRESH = 200
 class Player(sprite.Sprite):
+
     vel = 5
     vel_y = 0
+    dx = vel
+    dy = vel_y
+
     ammo = True
     muni = 10
     total_life = 50
@@ -34,19 +38,24 @@ class Player(sprite.Sprite):
         print("oi")
 
     def move_player(self,teclado,janela,plataforma):
+        self.vel = 5
+
         screen_scroll = 0
         #fisica do salto
         keyPressed = teclado.key_pressed("UP")
         if (keyPressed and self.is_jumping == False):
+
             self.is_jumping = True
             self.vel_y = -20
 
         
         self.vel_y += 30 * janela.delta_time()
-        
+        #substituir plataforma por?
         if self.y + self.vel_y + self.height +10 >= plataforma.y:
+
             self.y = plataforma.y - self.height
             self.is_jumping = False
+
         else: 
             self.y += self.vel_y
 
@@ -56,9 +65,11 @@ class Player(sprite.Sprite):
         if not self.is_playing():
             print('stoped')
         # fisica de movimento
+
         keyLeftPressed = teclado.key_pressed("LEFT") and self.x > 0
         keyRightPressed = teclado.key_pressed("RIGHT") and self.x < janela.width - self.width
         if (keyLeftPressed or keyRightPressed):
+
             if (keyLeftPressed):
                 self.x = self.x - self.vel
                 self.looking_right = False
@@ -73,10 +84,10 @@ class Player(sprite.Sprite):
 
         if self.x + self.width > 800 - SCROLL_THRESH:
             self.x -= self.vel
-            screen_scroll = -self.vel 
+            screen_scroll = -self.vel
         elif self.x < 100:
             self.x += self.vel
-            screen_scroll = self.vel 
+            screen_scroll = self.vel
         return screen_scroll
           
     def upd_action(self, new_action):
@@ -164,8 +175,25 @@ class Player(sprite.Sprite):
             if(self.colidiu(monster)):
                 self.decrease_life()
 
-        # for fire in list_of_enemy_fire:
-        #     if(self.colidiu(fire)):
-        #         self.decrease_life()
+    def colisao_com_plataforma(self,lista_de_obstaculos):
+        self.dy = 0
+        self.dx = 0
+        for tile in lista_de_obstaculos:
+            if tile[1].colliderect(self.x+self.vel,self.y,self.width,self.height):
+                self.dx = 0
+            #     self.vel_y = 0
+            if tile[1].colliderect(self.x,self.y+self.vel_y,self.width,self.height):
+                if self.vel_y < 0:
+                    self.vel_y = 0
+                    self.dy = tile[1].bottom - self.y
+                    # self.is_jumping = True
+                elif self.vel_y >= 0:
+                    self.vel_y = 0
+                    self.is_jumping = False
+                    self.dy = tile[1].top - (self.y+self.height)
+
+        self.x += self.dx
+        self.y += self.dy
+
 
 

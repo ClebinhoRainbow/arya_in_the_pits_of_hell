@@ -42,7 +42,7 @@ player = Player("assets/sprite.png",6)
 player.set_sequence_time(0,2,400)
 inimigo1 = Inimigo("assets/flip-enemy.png")
 inimigo2 = Inimigo("assets/flip-enemy.png")
-player.set_position(110,401)
+player.set_position(80,401)
 inimigo1.set_position(400, 401)
 inimigo2.set_position(700,251)
 plataforma = Plataforma("assets/plataforma.png", 45, 480, 1)
@@ -51,6 +51,8 @@ plataforma3 = Plataforma("assets/plataforma.png", 445, 480, 1)
 plataforma4 = Plataforma("assets/plataforma.png", 600, inimigo2.y + inimigo2.height, 1)
 lista_de_inimigos = []
 lista_plataformas = []
+
+lista_de_obstaculos = world.get_lista_de_obstaculos()
 lista_plataformas.append(plataforma)
 lista_plataformas.append(plataforma2)
 lista_plataformas.append(plataforma3)
@@ -68,13 +70,14 @@ def game():
 
         scroll = player.move_player(teclado, janela,plataforma)
 
-        inimigo1.move_inimigo(player.x,400, janela,plataforma)
-        inimigo2.move_inimigo(player.x,700,janela,plataforma)
+        # inimigo1.move_inimigo(player.x,400, janela,plataforma)
+        # inimigo2.move_inimigo(player.x,700,janela,plataforma)
 
         #Desenho dos Game Objects
         janela.set_background_color([43, 16, 41])
         world.desenha(janela, scroll)
         player.show_hud(janela.screen)
+        player.colisao_com_plataforma(lista_de_obstaculos)
         for inimigo in lista_de_inimigos:
             inimigo.draw()
             inimigo.shoot(janela, player)

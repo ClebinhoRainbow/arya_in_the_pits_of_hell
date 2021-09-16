@@ -62,27 +62,18 @@ def game():
     musica.play()
     while (True):
         clock.tick(FPS)
-        #entrad de dados
-
         # Update dos Game Objects
 
-        # janela.draw_text("OI", 200, 200, size=32, color=(255, 255, 255))
-    
         #Games Physics
 
-        
-        player.move_player(teclado, janela,plataforma)
-        # player.colidiu_com_plataforma(lista_plataformas)
-        # player.cair(janela)
+        scroll = player.move_player(teclado, janela,plataforma)
+
         inimigo1.move_inimigo(player.x,400, janela,plataforma)
         inimigo2.move_inimigo(player.x,700,janela,plataforma)
 
-        #Placar
-
         #Desenho dos Game Objects
-
         janela.set_background_color([43, 16, 41])
-        world.desenha(janela)
+        world.desenha(janela, scroll)
         player.show_hud(janela.screen)
         for inimigo in lista_de_inimigos:
             inimigo.draw()

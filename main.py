@@ -87,10 +87,8 @@ def game():
         janela.draw_text("Life: " + str(player.number_lifes), 580, 20, size=16, color=(255, 255, 255),
                             font_name="Arial",
                             bold=False, italic=False)
-        plataforma.draw()
-        plataforma2.draw()
-        plataforma3.draw()
-        plataforma4.draw()
+
+        player.save_ultima_posicao_segura(janela)
         print(mouse.get_position())
         janela.update()
 

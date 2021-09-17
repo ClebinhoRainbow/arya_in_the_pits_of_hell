@@ -225,7 +225,14 @@ class Player(sprite.Sprite):
             self.y = self.y_seguro-100
             self.number_lifes -= 1
     def pegou_item(self,lista_de_itens):
-        pass
+        for item in lista_de_itens:
+            if(self.collided(item)):
+                if(self.number_lifes + 20 > 50):
+                    self.number_lifes = 50
+                else:
+                    self.number_lifes += 20
+                lista_de_itens.remove(item)
+
 
 
 

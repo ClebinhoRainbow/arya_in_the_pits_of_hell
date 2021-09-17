@@ -38,7 +38,7 @@ class World():
                     self.lista_inimigos.append(novo_inimigo)
                 elif tile == 13:
                     novo_item = HealthPack("./assets/item.png")
-                    novo_item.set_position(tile_data[1][0], tile_data[1][1] - 64 + novo_item.height / 2)
+                    novo_item.set_position(tile_data[1][0], tile_data[1][1]  )
                     self.decoration_list.append(tile_data)
                     self.lista_itens.append(novo_item)
                 else:
@@ -59,6 +59,9 @@ class World():
             janela.screen.blit(tile[0],tile[1])
         for inimigo in self.lista_inimigos:
             inimigo.x +=scroll
+
+        for item in self.lista_itens:
+            item.x +=scroll
 
 
 

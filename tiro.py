@@ -10,5 +10,5 @@ class Tiro(sprite.Sprite):
     def atualiza_tiro(self,scroll):
 
         self.x += (self.vel * self.dire) + scroll*0.1
-        print(self.vel)
+
 

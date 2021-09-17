@@ -82,6 +82,8 @@ def game():
         player.colisao_com_plataforma(lista_de_obstaculos)
         player.pegou_item(lista_items)
         #print(len(lista_de_inimigos))
+        for item in lista_items:
+            item.draw()
         for inimigo in lista_de_inimigos:
             #inimigo.move_inimigo(player.x,player.y,janela)
             if inimigo.vida == 0:

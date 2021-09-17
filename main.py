@@ -72,9 +72,9 @@ def game():
         world.desenha(janela, scroll,scrollY)
         player.show_hud(janela.screen)
         player.colisao_com_plataforma(lista_de_obstaculos)
-
+        print(len(lista_de_inimigos))
         for inimigo in lista_de_inimigos:
-            #inimigo.move_inimigo()
+            # #inimigo.move_inimigo()
             inimigo.draw()
             inimigo.shoot(janela, player)
         player.update()
@@ -85,7 +85,7 @@ def game():
                             bold=False, italic=False)
 
         player.save_ultima_posicao_segura(janela)
-        print(mouse.get_position())
+        #print(mouse.get_position())
         janela.update()
 
 

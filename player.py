@@ -64,7 +64,7 @@ class Player(sprite.Sprite):
                 self.y += self.vel_y
                 # dy = self.vel_y
                 break
-        print(f"dy {dy}")
+        #print(f"dy {dy}")
 
         #print(self.get_curr_frame())
         if not self.is_looping():
@@ -149,7 +149,8 @@ class Player(sprite.Sprite):
             tiro.x = tiro.x + (tiro.vel * tiro.dire)
             for x in lInimigos:
                 if tiro.collided(x):
-                    self.lista_tiros.pop(0)
+                    if(len(self.lista_tiros) > 0):
+                        self.lista_tiros.pop(0)
                     lInimigos.remove(x)
             if (tiro.x > janela.width or tiro.x < 0):
                 self.lista_tiros.pop(0)

@@ -8,5 +8,5 @@ class Tiro(sprite.Sprite):
         super().init(image_file,frames=1)
 
     def atualiza_tiro(self,scroll):
-        # print(self.vel)
+        print(self.x)
         self.x += (self.vel * self.dire)

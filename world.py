@@ -3,7 +3,7 @@ from PPlay.gameimage import *
 import pygame
 from pygame.locals import *
 from inimigo import  *
-
+from health_pack import *
 TILE_SIZE = 64
 
 img_list = []
@@ -16,6 +16,7 @@ class World():
         self.obstacle_list = []
         self.decoration_list = []
         self.lista_inimigos = []
+        self.lista_itens = []
     
     def processa_dado(self, data):
         for y, row in enumerate(data):
@@ -32,10 +33,14 @@ class World():
                     novo_inimigo = Inimigo("./assets/inimigo.png")
 
                     novo_inimigo.set_position(tile_data[1][0],tile_data[1][1]-64+novo_inimigo.height/2)
-                    #novo_inimigo.set_position(400, 401)
 
                     self.decoration_list.append(tile_data)
                     self.lista_inimigos.append(novo_inimigo)
+                elif tile == 13:
+                    novo_item = HealthPack("./assets/item.png")
+                    novo_item.set_position(tile_data[1][0], tile_data[1][1] - 64 + novo_item.height / 2)
+                    self.decoration_list.append(tile_data)
+                    self.lista_itens.append(novo_item)
                 else:
                     self.decoration_list.append(tile_data)
 
@@ -58,6 +63,7 @@ class World():
 
 
 
+
     def get_lista_de_obstaculos(self):
         return self.obstacle_list
 
@@ -65,3 +71,5 @@ class World():
         return self.lista_inimigos
     def get_decoration_list(self):
         return self.decoration_list
+    def get_lista_itens(self):
+        return self.lista_itens

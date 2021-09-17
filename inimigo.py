@@ -37,7 +37,7 @@ class Inimigo(sprite.Sprite):
 
 
     def flip_inimigo(self):
-        #TODO
+
         if(self.looking_right == True):
             self.image = pygame.image.load("assets/enemy.png")
             self.x -= self.width/2
@@ -61,10 +61,11 @@ class Inimigo(sprite.Sprite):
             self.lista_tiro.append(tiro)
             self.ammo = False
         for t in self.lista_tiro:
+
             t.atualiza_tiro(scroll)
             if player.y < t.y and player.y + player.height > t.y:
                 if t.collided(player):
-                    print("colidiu")
+
                     self.lista_tiro.pop(0)
                     player.number_lifes -= 1
                     self.ammo = True
@@ -73,4 +74,8 @@ class Inimigo(sprite.Sprite):
                 self.ammo = True
             t.update()
             t.draw()
-        
+    def desenha_lista_de_tiros(self):
+        for tiro in self.lista_tiro:
+            if(tiro):
+                tiro.update()
+                tiro.draw()

@@ -180,10 +180,10 @@ class Player(sprite.Sprite):
     def decrease_life(self):
         self.number_lifes -= 1
 
-    def colidiu(self, list_of_monsters, list_of_enemy_fire):
-        for monster in list_of_monsters:
-            if(self.colidiu(monster)):
-                self.decrease_life()
+    # def colidiu(self, list_of_monsters, list_of_enemy_fire):
+    #     for monster in list_of_monsters:
+    #         if(self.colidiu(monster)):
+    #             self.decrease_life()
 
     def colisao_com_plataforma(self,lista_de_obstaculos):
         self.dy = 0
@@ -216,13 +216,14 @@ class Player(sprite.Sprite):
 
     def save_ultima_posicao_segura(self, janela):
         if(self.y >= janela.height):
-            print("caiu")
             if(self.looking_right):
                 self.x = self.x_seguro  - self.width
             else:
                 self.x = self.x_seguro + self.width
             self.y = self.y_seguro-100
             self.number_lifes -= 1
+    def pegou_item(self,lista_de_itens):
+        pass
 
 
 

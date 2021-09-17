@@ -44,26 +44,23 @@ world.processa_dado(world_data)
 
 player = Player("assets/sprite.png",6)
 player.set_sequence_time(0,2,400)
-inimigo1 = Inimigo("assets/flip-enemy.png")
-inimigo2 = Inimigo("assets/flip-enemy.png")
+# inimigo1 = Inimigo("assets/flip-enemy.png")
+# inimigo2 = Inimigo("assets/flip-enemy.png")
 player.set_position(80,401)
-inimigo1.set_position(400, 401)
-inimigo2.set_position(700,251)
+# inimigo1.set_position(400, 401)
+# inimigo2.set_position(700,251)
 
 lista_de_inimigos = []
 
-
+lista_items = world.get_lista_itens()
 lista_de_obstaculos = world.get_lista_de_obstaculos()
 
 lista_de_inimigos = world.get_lista_de_inimigos()
 score = 0
-delta_time_0 = 0
-delta_time_1 = 0
+
 
 def game():
     musica.play()
-
-
     while (True):
         score = pygame.time.get_ticks()
         clock.tick(FPS)
@@ -81,11 +78,13 @@ def game():
         world.desenha(janela, scroll,scrollY)
         player.show_hud(janela.screen)
         player.colisao_com_plataforma(lista_de_obstaculos)
+        player.pegou_item(lista_items)
         #print(len(lista_de_inimigos))
         for inimigo in lista_de_inimigos:
             #inimigo.move_inimigo(player.x,player.y,janela)
             inimigo.draw()
             inimigo.shoot(janela, player,scroll)
+
         player.update()
         player.draw()
         player.shoot(janela, teclado, lista_de_inimigos)
@@ -97,7 +96,6 @@ def game():
         #print(mouse.get_position())
         janela.update()
         if (player.number_lifes <= 0):
-
             score //= 100
             return score
 

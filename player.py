@@ -185,17 +185,20 @@ class Player(sprite.Sprite):
         for tile in lista_de_obstaculos:
             if tile[1].colliderect(self.x+self.vel,self.y,self.width,self.height):
                 self.dx = 0
+
             #     self.vel_y = 0
             if tile[1].colliderect(self.x,self.y+self.vel_y,self.width,self.height):
                 if self.vel_y < 0:
                     self.vel_y = 0
                     self.dy = tile[1].bottom - self.y
+
                     # self.is_jumping = True
                 elif self.vel_y >= 0:
-                    self.vel_y = 0
-                    self.is_jumping = False
                     self.x_seguro = self.x
                     self.y_seguro = self.y
+                    self.vel_y = 0
+                    self.is_jumping = False
+
                     self.dy = tile[1].top - (self.y+self.height)
 
         self.x += self.dx

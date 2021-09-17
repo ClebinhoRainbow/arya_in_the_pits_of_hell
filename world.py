@@ -2,8 +2,10 @@ import PPlay
 from PPlay.gameimage import *
 import pygame
 from pygame.locals import *
+from inimigo import  *
 
 TILE_SIZE = 64
+
 img_list = []
 for x in range(19):
     img = pygame.image.load(f'assets/tiles/{x}.png')
@@ -13,6 +15,7 @@ class World():
     def __init__(self):
         self.obstacle_list = []
         self.decoration_list = []
+        self.lista_inimigos = []
     
     def processa_dado(self, data):
         for y, row in enumerate(data):
@@ -25,8 +28,14 @@ class World():
                     tile_data = (img, img_rect)
                 if tile == 1 or tile == 2  or tile == 5  or tile == 6  or tile == 14 or tile == 17:
                     self.obstacle_list.append(tile_data)
+                elif tile == 4:
+                    novo_inimigo = Inimigo("./assets/inimigo.png")
+                    novo_inimigo.set_position(tile_data[1][0],tile_data[1][1]+novo_inimigo.height)
+                    self.decoration_list.append(tile_data)
+                    self.lista_inimigos.append(novo_inimigo)
                 else:
                     self.decoration_list.append(tile_data)
+
                 #1,2,5,6,14
 
     def desenha(self, janela, scroll):
@@ -40,3 +49,6 @@ class World():
 
     def get_lista_de_obstaculos(self):
         return self.obstacle_list
+
+    def get_lista_de_inimigos(self):
+        return self.lista_inimigos

@@ -17,7 +17,7 @@ class Inimigo(sprite.Sprite):
     def init(self, image_file):
         super().init(image_file, frames=1)
 
-    def move_inimigo(self, playerX, posInimigoInicialX, janela, plataforma):
+    def move_inimigo(self, playerX, posInimigoInicialX, janela):
 
         
         if(posInimigoInicialX + 200 <= self.x):

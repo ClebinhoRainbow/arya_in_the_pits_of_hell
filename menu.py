@@ -18,7 +18,8 @@ while True:
         if mouse.is_button_pressed(1):
             hover.stop()
             select.play()
-            main.game()
+            score = main.game()
+            main.game_over(score)
     elif mouse.is_over_area([110,325],[170, 355]):
         if cur != 2:
             hover.play()

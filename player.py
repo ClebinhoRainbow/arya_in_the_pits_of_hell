@@ -189,11 +189,11 @@ class Player(sprite.Sprite):
         self.dy = 0
         self.dx = 0
         for tile in lista_de_obstaculos:
-            if tile[1].colliderect(self.x+self.vel,self.y,self.width,self.height):
+            if tile[1].colliderect(self.x+self.vel,self.y,self.width/2,self.height):
                 self.dx = 0
 
                 #     self.vel_y = 0
-            if tile[1].colliderect(self.x,self.y+self.vel_y,self.width,self.height):
+            if tile[1].colliderect(self.x,self.y+self.vel_y,self.width/2,self.height):
                 if self.vel_y < 0:
                     self.vel_y = 0
                     self.dy = tile[1].bottom - self.y

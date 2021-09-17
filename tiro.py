@@ -7,5 +7,6 @@ class Tiro(sprite.Sprite):
     def init(self, image_file):
         super().init(image_file,frames=1)
 
-    def atualiza_tiro(self):
-        self.x += self.vel * self.dire
+    def atualiza_tiro(self,scroll):
+        # print(self.vel)
+        self.x += (self.vel * self.dire)

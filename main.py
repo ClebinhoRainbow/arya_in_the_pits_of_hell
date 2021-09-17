@@ -1,3 +1,7 @@
+import time
+
+import pygame.time
+
 from world import *
 from PPlay.window import *
 from PPlay.gameimage import *
@@ -25,7 +29,7 @@ mouse = Window.get_mouse()
 
 # player = Player("arya.png", 50, 401)
 world_data = []
-for row in range(20):
+for row in range(10):
     r = [0] * 60
     world_data.append(r)
 
@@ -52,11 +56,16 @@ lista_de_inimigos = []
 lista_de_obstaculos = world.get_lista_de_obstaculos()
 
 lista_de_inimigos = world.get_lista_de_inimigos()
-
+score = 0
+delta_time_0 = 0
+delta_time_1 = 0
 
 def game():
     musica.play()
+
+
     while (True):
+        score = pygame.time.get_ticks()
         clock.tick(FPS)
         # Update dos Game Objects
 
@@ -72,11 +81,11 @@ def game():
         world.desenha(janela, scroll,scrollY)
         player.show_hud(janela.screen)
         player.colisao_com_plataforma(lista_de_obstaculos)
-        print(len(lista_de_inimigos))
+        #print(len(lista_de_inimigos))
         for inimigo in lista_de_inimigos:
-            # #inimigo.move_inimigo()
+            #inimigo.move_inimigo(player.x,player.y,janela)
             inimigo.draw()
-            inimigo.shoot(janela, player)
+            inimigo.shoot(janela, player,scroll)
         player.update()
         player.draw()
         player.shoot(janela, teclado, lista_de_inimigos)
@@ -87,6 +96,23 @@ def game():
         player.save_ultima_posicao_segura(janela)
         #print(mouse.get_position())
         janela.update()
+        if (player.number_lifes <= 0):
+
+            score //= 100
+            return score
 
 
 
+
+
+def game_over(score):
+    while(True):
+        janela.set_background_color([0, 0, 0])
+        janela.draw_text("GAME OVER LOSER ", janela.width/2, janela.height/2, size=16, color=(255, 255, 255),
+                         font_name="Arial",
+                         bold=False, italic=False)
+        janela.draw_text("You've scored "+str(score), janela.width -200, janela.height -200, size=8, color=(255, 255, 255),
+                         font_name="Arial",
+                         bold=False, italic=False)
+        janela.update()
+"You've scored "+str(score)

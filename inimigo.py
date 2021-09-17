@@ -45,7 +45,7 @@ class Inimigo(sprite.Sprite):
             self.image = pygame.image.load("assets/flip-enemy.png")
             self.x += self.width/2
 
-    def shoot(self,janela,player):
+    def shoot(self,janela,player,scroll):
 
         if self.ammo:
             tiro = Tiro("assets/fire-ball-big.png",2)
@@ -61,7 +61,7 @@ class Inimigo(sprite.Sprite):
             self.lista_tiro.append(tiro)
             self.ammo = False
         for t in self.lista_tiro:
-            t.atualiza_tiro()
+            t.atualiza_tiro(scroll)
             if player.y < t.y and player.y + player.height > t.y:
                 if t.collided(player):
                     print("colidiu")

@@ -30,7 +30,7 @@ class World():
                     self.obstacle_list.append(tile_data)
                 elif tile == 4:
                     novo_inimigo = Inimigo("./assets/inimigo.png")
-                    print(f'tile {tile_data}')
+
                     novo_inimigo.set_position(tile_data[1][0],tile_data[1][1]-64+novo_inimigo.height/2)
                     #novo_inimigo.set_position(400, 401)
 
@@ -52,6 +52,9 @@ class World():
             tile[1][0] += scroll
             tile[1][1] += scroll_Y
             janela.screen.blit(tile[0],tile[1])
+        for inimigo in self.lista_inimigos:
+            inimigo.x +=scroll
+
 
 
 

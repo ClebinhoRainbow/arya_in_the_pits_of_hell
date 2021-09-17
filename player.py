@@ -155,7 +155,8 @@ class Player(sprite.Sprite):
                         self.lista_tiros.pop(0)
                     x.vida -=1
             if (tiro.x > janela.width or tiro.x < 0):
-                self.lista_tiros.pop(0)
+                if(len(self.lista_tiros) >0):
+                    self.lista_tiros.pop(0)
                 continue
             #tiro.set_position(tiro.x+5,tiro.y)
             tiro.draw()

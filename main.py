@@ -9,6 +9,7 @@ from PPlay.sprite import *
 from player import *
 from plataforma import *
 from inimigo import *
+from inimigo_voador import *
 from PPlay.sound import *
 import csv
 
@@ -44,12 +45,10 @@ world.processa_dado(world_data)
 
 player = Player("assets/sprite.png",6)
 player.set_sequence_time(0,2,400)
-# inimigo1 = Inimigo("assets/flip-enemy.png")
-# inimigo2 = Inimigo("assets/flip-enemy.png")
 player.set_position(80,401)
-# inimigo1.set_position(400, 401)
-# inimigo2.set_position(700,251)
 
+inimigo_voador = InimigoVoador("./assets/ball-big.png")
+inimigo_voador.set_position(225,200)
 lista_de_inimigos = []
 
 lista_items = world.get_lista_itens()
@@ -81,6 +80,7 @@ def game():
         player.show_hud(janela.screen)
         player.colisao_com_plataforma(lista_de_obstaculos)
         player.pegou_item(lista_items)
+        inimigo_voador.move_inimigo(375,250,player,janela,scroll)
         #print(len(lista_de_inimigos))
         for item in lista_items:
             item.draw()
@@ -90,6 +90,7 @@ def game():
                 lista_de_inimigos.remove(inimigo)
             inimigo.draw()
             inimigo.shoot(janela, player,scroll)
+        inimigo_voador.draw()
 
         player.update()
         player.draw()

@@ -30,3 +30,4 @@ while True:
         cur = 0
     fundo.draw()
     windows.update()
+ 

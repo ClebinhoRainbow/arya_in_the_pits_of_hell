@@ -12,7 +12,7 @@ from inimigo import *
 from PPlay.sound import *
 import csv
 
-#inicializacao
+#inicializacao 
 
 janela = Window(800, 600)
 janela.set_title("Arya in the pits of hell")
@@ -60,7 +60,9 @@ score = 0
 
 
 def game():
-    musica.play()
+
+    #musica.play()
+
     while (True):
         score = pygame.time.get_ticks()
         clock.tick(FPS)
@@ -82,16 +84,14 @@ def game():
         #print(len(lista_de_inimigos))
         for inimigo in lista_de_inimigos:
             #inimigo.move_inimigo(player.x,player.y,janela)
+            if inimigo.vida == 0:
+                lista_de_inimigos.remove(inimigo)
             inimigo.draw()
             inimigo.shoot(janela, player,scroll)
 
         player.update()
         player.draw()
         player.shoot(janela, teclado, lista_de_inimigos)
-        janela.draw_text("Life: " + str(player.number_lifes), 580, 20, size=16, color=(255, 255, 255),
-                            font_name="Arial",
-                            bold=False, italic=False)
-
         player.save_ultima_posicao_segura(janela)
         #print(mouse.get_position())
         janela.update()

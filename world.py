@@ -27,7 +27,7 @@ class World():
                     img_rect.x = x * TILE_SIZE
                     img_rect.y = y * TILE_SIZE
                     tile_data = (img, img_rect)
-                if tile == 1 or tile == 2  or tile == 5  or tile == 6  or tile == 14 or tile == 17:
+                if tile == 1 or tile == 2  or tile == 5  or tile == 6  or tile == 14 or tile == 10 or tile == 17:
                     self.obstacle_list.append(tile_data)
                 elif tile == 4:
                     novo_inimigo = Inimigo("./assets/inimigo.png")

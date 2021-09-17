@@ -5,6 +5,7 @@ from PPlay.window import *
 
 class Inimigo(sprite.Sprite):
     #vel = 150
+    vida = 3
     ammo = True
     lista_tiro = []
     number_lifes = 3
@@ -13,7 +14,7 @@ class Inimigo(sprite.Sprite):
     direcao = 1
     #is_jumping = False
     relogio = 0
-
+ 
     def init(self, image_file):
         super().init(image_file, frames=1)
 
@@ -69,7 +70,7 @@ class Inimigo(sprite.Sprite):
                     self.lista_tiro.pop(0)
                     player.number_lifes -= 1
                     self.ammo = True
-            if t.x < 0 or t.x > janela.width:
+            if t.x < 0 :
                 self.lista_tiro.pop(0)
                 self.ammo = True
             t.update()

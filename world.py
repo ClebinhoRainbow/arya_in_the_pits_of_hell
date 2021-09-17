@@ -45,6 +45,7 @@ class World():
             janela.screen.blit(tile[0],tile[1])
 
         for tile in self.decoration_list:
+
             tile[1][0] += scroll
             tile[1][1] += scroll_Y
             janela.screen.blit(tile[0],tile[1])
@@ -56,3 +57,5 @@ class World():
 
     def get_lista_de_inimigos(self):
         return self.lista_inimigos
+    def get_decoration_list(self):
+        return self.decoration_list

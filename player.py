@@ -50,7 +50,7 @@ class Player(sprite.Sprite):
         if (keyPressed and self.is_jumping == False):
 
             self.is_jumping = True
-            self.vel_y = -11
+            self.vel_y = -20
 
         
         self.vel_y += 30 * janela.delta_time()
@@ -62,7 +62,7 @@ class Player(sprite.Sprite):
                 break
             else:
                 self.y += self.vel_y
-                dy = self.vel_y
+                # dy = self.vel_y
                 break
         print(f"dy {dy}")
 
@@ -191,20 +191,24 @@ class Player(sprite.Sprite):
             if tile[1].colliderect(self.x+self.vel,self.y,self.width,self.height):
                 self.dx = 0
 
-            #     self.vel_y = 0
+                #     self.vel_y = 0
             if tile[1].colliderect(self.x,self.y+self.vel_y,self.width,self.height):
                 if self.vel_y < 0:
                     self.vel_y = 0
                     self.dy = tile[1].bottom - self.y
 
                     # self.is_jumping = True
+                    break
                 elif self.vel_y >= 0:
-                    self.x_seguro = self.x
-                    self.y_seguro = self.y
+
                     self.vel_y = 0
                     self.is_jumping = False
 
                     self.dy = tile[1].top - (self.y+self.height)
+                    self.x_seguro = self.x
+                    self.y_seguro = self.y
+                    break
+
 
         self.x += self.dx
         self.y += self.dy
@@ -212,8 +216,11 @@ class Player(sprite.Sprite):
     def save_ultima_posicao_segura(self, janela):
         if(self.y >= janela.height):
             print("caiu")
-            self.x = self.x_seguro
-            self.y = self.y_seguro
+            if(self.looking_right):
+                self.x = self.x_seguro  - self.width
+            else:
+                self.x = self.x_seguro + self.width
+            self.y = self.y_seguro-100
             self.number_lifes -= 1
 
 

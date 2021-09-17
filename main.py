@@ -74,7 +74,6 @@ def game():
         player.colisao_com_plataforma(lista_de_obstaculos)
 
         for inimigo in lista_de_inimigos:
-            print(f'inimigo x {inimigo.x}')
             #inimigo.move_inimigo()
             inimigo.draw()
             inimigo.shoot(janela, player)

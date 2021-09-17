@@ -42,14 +42,15 @@ class Player(sprite.Sprite):
 
     def move_player(self,teclado,janela,plataformas):
         self.vel = 5
-
+        dy = 0
+        screen_scrollY = 0
         screen_scroll = 0
         #fisica do salto
         keyPressed = teclado.key_pressed("UP")
         if (keyPressed and self.is_jumping == False):
 
             self.is_jumping = True
-            self.vel_y = -25
+            self.vel_y = -11
 
         
         self.vel_y += 30 * janela.delta_time()
@@ -61,7 +62,9 @@ class Player(sprite.Sprite):
                 break
             else:
                 self.y += self.vel_y
+                dy = self.vel_y
                 break
+        print(f"dy {dy}")
 
         #print(self.get_curr_frame())
         if not self.is_looping():
@@ -92,7 +95,9 @@ class Player(sprite.Sprite):
         elif self.x < 100:
             self.x += self.vel
             screen_scroll = self.vel
-        return screen_scroll
+
+        screen_scrollY = -dy
+        return screen_scroll,screen_scrollY
           
     def upd_action(self, new_action):
         if self.action != new_action:

@@ -62,14 +62,14 @@ def game():
 
         #Games Physics
 
-        scroll = player.move_player(teclado, janela,lista_de_obstaculos)
+        scroll,scrollY = player.move_player(teclado, janela,lista_de_obstaculos)
 
         # inimigo1.move_inimigo(lista_de_obstaculos[0][0],375, janela)
         # inimigo2.move_inimigo(lista_de_obstaculos[0][1],700,janela)
 
         #Desenho dos Game Objects
         janela.set_background_color([43, 16, 41])
-        world.desenha(janela, scroll)
+        world.desenha(janela, scroll,scrollY)
         player.show_hud(janela.screen)
         player.colisao_com_plataforma(lista_de_obstaculos)
 

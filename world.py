@@ -26,14 +26,13 @@ class World():
                     img_rect.x = x * TILE_SIZE
                     img_rect.y = y * TILE_SIZE
                     tile_data = (img, img_rect)
-                if tile == 1 or tile == 2  or tile == 5  or tile == 6  or tile == 14 or tile == 17:
+                if tile == 1 or tile == 2  or tile == 5  or tile == 6  or tile == 14 or tile == 10 or tile == 17:
                     self.obstacle_list.append(tile_data)
                 elif tile == 4:
                     novo_inimigo = Inimigo("./assets/inimigo.png")
 
                     novo_inimigo.set_position(tile_data[1][0],tile_data[1][1]-64+novo_inimigo.height/2)
                     #novo_inimigo.set_position(400, 401)
-
                     self.decoration_list.append(tile_data)
                     self.lista_inimigos.append(novo_inimigo)
                 else:

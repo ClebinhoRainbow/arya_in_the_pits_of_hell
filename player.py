@@ -13,12 +13,12 @@ class Player(sprite.Sprite):
     vel_y = 0
     dx = vel
     dy = vel_y
-
+    reloading = 3
     ammo = True
     muni = 10
     total_life = 50
     number_lifes = 50
-    item = True
+    item = False
     looking_right = True
     is_jumping = False
     relogio = 0
@@ -50,7 +50,7 @@ class Player(sprite.Sprite):
         if (keyPressed and self.is_jumping == False):
 
             self.is_jumping = True
-            self.vel_y = -20
+            self.vel_y = -11
 
         
         self.vel_y += 30 * janela.delta_time()
@@ -129,7 +129,9 @@ class Player(sprite.Sprite):
 
         self.delta_1 = time.time()
         cooldown = self.delta_1 - self.delta_0
-        if (teclado.key_pressed("SPACE")   and cooldown > self.shoot_rate ):
+        if self.muni == 0 and cooldown > self.reloading:
+            self.muni = 10
+        if (teclado.key_pressed("SPACE") and cooldown > self.shoot_rate and self.muni > 0):
             efx.play()
             self.muni -= 1
             self.delta_0 = time.time()
@@ -151,7 +153,7 @@ class Player(sprite.Sprite):
                 if tiro.collided(x):
                     if(len(self.lista_tiros) > 0):
                         self.lista_tiros.pop(0)
-                    lInimigos.remove(x)
+                    x.vida -=1
             if (tiro.x > janela.width or tiro.x < 0):
                 self.lista_tiros.pop(0)
                 continue
